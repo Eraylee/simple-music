@@ -8,6 +8,7 @@ import 'package:simple_music/models/search.dart';
 import 'package:simple_music/utils/navigator_util.dart';
 import 'package:simple_music/application.dart';
 import 'package:simple_music/views/search/hot_search_list_widget.dart';
+import 'package:simple_music/views/search/search_history_widget.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
@@ -34,6 +35,7 @@ class SearchState extends State<SearchPage> {
               cursorColor: Colors.white,
               textInputAction: TextInputAction.search,
               textAlignVertical: TextAlignVertical.center,
+              onSubmitted: (value) {},
               decoration: InputDecoration(
                 hintText: '输入搜索关键字',
                 hintStyle:
@@ -55,6 +57,7 @@ class SearchState extends State<SearchPage> {
               SingleChildScrollView(
             child: Column(
               children: <Widget>[
+                SearchHistoryWidget(searchModel.searchHistory),
                 HotSearchListWidget(searchModel.hotSearchList)
               ],
             ),

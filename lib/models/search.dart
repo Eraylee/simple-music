@@ -28,6 +28,7 @@ class SearchModel with ChangeNotifier {
     try {
       HotSearchData res = await Api.getHotSearchList();
       _hotSearchList = res.data;
+      notifyListeners();
     } catch (e) {
       print('errors ${e.toString()}');
     }
