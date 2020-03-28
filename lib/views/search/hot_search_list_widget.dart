@@ -12,8 +12,11 @@ class HotSearchListWidget extends StatelessWidget {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 12),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
-          Text('热门搜索'),
+          Center(
+            child: Text('热门搜索'),
+          ),
           Divider(),
           hotSearch.isEmpty
               ? Center(

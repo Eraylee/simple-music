@@ -11,7 +11,7 @@ class SearchModel with ChangeNotifier {
   List<HotSearch> get hotSearchList => _hotSearchList;
 
   void addSearchHistory(value) {
-    _hotSearchList.add(value);
+    _searchHistory.add(value);
     _saveSearchHistory();
   }
 
@@ -22,6 +22,8 @@ class SearchModel with ChangeNotifier {
 
   void _saveSearchHistory() {
     Application.sp.setStringList('search_history', _searchHistory);
+
+    notifyListeners();
   }
 
   void getHotSearch() async {

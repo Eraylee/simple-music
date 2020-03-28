@@ -31,24 +31,28 @@ class SearchState extends State<SearchPage> {
     return Scaffold(
         appBar: AppBar(
           title: Theme(
-            child: TextField(
-              cursorColor: Colors.white,
-              textInputAction: TextInputAction.search,
-              textAlignVertical: TextAlignVertical.center,
-              onSubmitted: (value) {},
-              decoration: InputDecoration(
-                hintText: '输入搜索关键字',
-                hintStyle:
-                    TextStyle(color: Colors.white, fontWeight: FontWeight.w100),
-                suffixIcon: IconButton(
-                    padding: EdgeInsets.zero,
-                    icon: Icon(
-                      Icons.clear,
-                      color: Colors.white,
-                    ),
-                    onPressed: () {}),
-              ),
-            ),
+            child: Consumer<SearchModel>(
+                builder: (BuildContext context, SearchModel searchModel, _) =>
+                    TextField(
+                      cursorColor: Colors.white,
+                      textInputAction: TextInputAction.search,
+                      textAlignVertical: TextAlignVertical.center,
+                      onSubmitted: (value) {
+                        searchModel.addSearchHistory(value);
+                      },
+                      decoration: InputDecoration(
+                        hintText: '输入搜索关键字',
+                        hintStyle: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.w100),
+                        suffixIcon: IconButton(
+                            padding: EdgeInsets.zero,
+                            icon: Icon(
+                              Icons.clear,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {}),
+                      ),
+                    )),
             data: Theme.of(context).copyWith(primaryColor: Colors.black54),
           ),
         ),
