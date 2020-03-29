@@ -1,4 +1,3 @@
-import 'package:flustars/flustars.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -9,6 +8,7 @@ import 'package:simple_music/utils/navigator_util.dart';
 import 'package:simple_music/application.dart';
 import 'package:simple_music/views/search/hot_search_list_widget.dart';
 import 'package:simple_music/views/search/search_history_widget.dart';
+import 'package:simple_music/widgets/search_widget.dart';
 
 class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
@@ -33,26 +33,9 @@ class SearchState extends State<SearchPage> {
           title: Theme(
             child: Consumer<SearchModel>(
                 builder: (BuildContext context, SearchModel searchModel, _) =>
-                    TextField(
-                      cursorColor: Colors.white,
-                      textInputAction: TextInputAction.search,
-                      textAlignVertical: TextAlignVertical.center,
-                      onSubmitted: (value) {
-                        searchModel.addSearchHistory(value);
-                      },
-                      decoration: InputDecoration(
-                        hintText: '输入搜索关键字',
-                        hintStyle: TextStyle(
-                            color: Colors.white, fontWeight: FontWeight.w100),
-                        suffixIcon: IconButton(
-                            padding: EdgeInsets.zero,
-                            icon: Icon(
-                              Icons.clear,
-                              color: Colors.white,
-                            ),
-                            onPressed: () {}),
-                      ),
-                    )),
+                    SearchWidget(
+                        onSubmitted: (value) =>
+                            searchModel.addSearchHistory(value))),
             data: Theme.of(context).copyWith(primaryColor: Colors.black54),
           ),
         ),

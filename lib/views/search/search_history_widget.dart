@@ -18,7 +18,6 @@ class SearchHistoryWidget extends StatelessWidget {
             padding: EdgeInsets.all(8),
             child: Wrap(
               spacing: 8.0, // gap between adjacent chips
-              runSpacing: 4.0,
               children: history.asMap().keys.map((index) {
                 String value = history[index];
                 return Chip(label: Text(value));
