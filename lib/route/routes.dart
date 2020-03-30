@@ -6,10 +6,10 @@ import 'package:simple_music/route/route_handlers.dart';
 class Routes {
   static String root = "/";
   static String home = "/home";
-
   static String login = "/login";
   static String search = "/Search";
   static String player = "/player";
+  static String searchDetail = "/searchDetail";
   static String playlistDeital = "/playlistDeital";
   static String dailySongDetail = "/dailySongDetail";
 
@@ -22,6 +22,7 @@ class Routes {
     router.define(login, handler: loginHandler);
     router.define(player, handler: playerHandler);
     router.define(search, handler: searchHandler);
+    router.define(searchDetail, handler: searchDetailHandler);
     router.define(playlistDeital, handler: playelistDetailHandler);
     router.define(dailySongDetail, handler: dailySongsDetailHandler);
   }

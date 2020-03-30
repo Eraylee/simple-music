@@ -6,6 +6,7 @@ import 'package:simple_music/utils/data_utils.dart';
 import 'package:simple_music/views/container/container_page.dart';
 import 'package:simple_music/views/dailySong/daily_song_page.dart';
 import 'package:simple_music/views/playlistDetail/playlist_detail_page.dart';
+import 'package:simple_music/views/search/search_detial_page.dart';
 import 'package:simple_music/views/search/search_page.dart';
 import 'package:simple_music/views/splash/splash_page.dart';
 import 'package:simple_music/views/login/login_page.dart';
@@ -49,4 +50,11 @@ Handler dailySongsDetailHandler = Handler(
 Handler searchHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
   return SearchPage();
+});
+
+/// 搜索详情
+Handler searchDetailHandler = Handler(
+    handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
+  String data = params['data']?.first;
+  return SearchDetailPage(DataUtils.fluroCnParamsDecode(data));
 });

@@ -37,4 +37,10 @@ class NavigatorUtil {
   static void goSearchPage(BuildContext context) {
     Application.router.navigateTo(context, Routes.search);
   }
+
+  /// 搜索详情页
+  static void goSearchDetailPage(BuildContext context, String data) {
+    Application.router.navigateTo(context,
+        '${Routes.searchDetail}?data=${DataUtils.fluroCnParamsEncode(data)}');
+  }
 }

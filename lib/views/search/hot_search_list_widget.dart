@@ -5,8 +5,9 @@ import 'package:simple_music/widgets/empty_view_widget.dart';
 import 'package:simple_music/widgets/loading_widget.dart';
 
 class HotSearchListWidget extends StatelessWidget {
-  HotSearchListWidget(this.hotSearch);
+  HotSearchListWidget(this.hotSearch );
   final List<HotSearch> hotSearch;
+
   @override
   Widget build(BuildContext context) {
     return Padding(

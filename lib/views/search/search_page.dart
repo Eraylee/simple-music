@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'package:simple_music/api/http.dart';
-import 'package:simple_music/entities/hotSearch.dart';
 import 'package:simple_music/models/search.dart';
 import 'package:simple_music/utils/navigator_util.dart';
-import 'package:simple_music/application.dart';
 import 'package:simple_music/views/search/hot_search_list_widget.dart';
 import 'package:simple_music/views/search/search_history_widget.dart';
 import 'package:simple_music/widgets/search_widget.dart';
@@ -30,14 +27,15 @@ class SearchState extends State<SearchPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Theme(
-            child: Consumer<SearchModel>(
-                builder: (BuildContext context, SearchModel searchModel, _) =>
-                    SearchWidget(
-                        onSubmitted: (value) =>
-                            searchModel.addSearchHistory(value))),
-            data: Theme.of(context).copyWith(primaryColor: Colors.black54),
-          ),
+          brightness: Theme.of(context).primaryColorBrightness,
+          textTheme: Theme.of(context).primaryTextTheme,
+          backgroundColor: Theme.of(context).primaryColor,
+          title: Consumer<SearchModel>(
+              builder: (BuildContext context, SearchModel searchModel, _) =>
+                  SearchWidget(onSubmitted: (value) {
+                    searchModel.addSearchHistory(value);
+                    NavigatorUtil.goSearchDetailPage(context, value);
+                  })),
         ),
         body: Consumer<SearchModel>(
           builder: (BuildContext context, SearchModel searchModel, _) =>

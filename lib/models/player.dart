@@ -24,7 +24,13 @@ class PlayerModel with ChangeNotifier {
     _audioPlayer.onPlayerStateChanged.listen((state) {
       _playState = state;
       if (state == AudioPlayerState.COMPLETED) {
-        playNext();
+        /// 如果是单曲循环
+        if (_playMode == PlayMode.repeat) {
+          stop();
+          play();
+        } else {
+          playNext();
+        }
       }
       notifyListeners();
     });
@@ -85,7 +91,7 @@ class PlayerModel with ChangeNotifier {
   List<Lyric> get user => lyric;
 
   List<Song> get playList => _playList;
-  Song get song =>  _currentIndex >= 0 ? _playList[_currentIndex] : null;
+  Song get song => _currentIndex >= 0 ? _playList[_currentIndex] : null;
   int get currentIndex => _currentIndex;
   AudioPlayerState get playState => _playState;
   Duration get songDuration => _songDuration;
@@ -180,18 +186,13 @@ class PlayerModel with ChangeNotifier {
 
   /// 下一曲
   void playNext() {
-    if (_playMode == PlayMode.repeat) {
-      if (_currentIndex >= _playList.length - 1) {
-        _currentIndex = 0;
-      } else {
-        _currentIndex++;  
-      }
-      play();
-      getLyric();
+    if (_currentIndex >= _playList.length - 1) {
+      _currentIndex = 0;
     } else {
-      stop();
-      play();
+      _currentIndex++;
     }
+    play();
+    getLyric();
   }
 
   /// 停止播放
@@ -201,18 +202,13 @@ class PlayerModel with ChangeNotifier {
 
   ///上一曲
   void playPrev() {
-    if (_playMode == PlayMode.repeat) {
-      if (_currentIndex <= 0) {
-        _currentIndex = _playList.length - 1;
-      } else {
-        _currentIndex--;
-      }
-      play();
-      getLyric();
+    if (_currentIndex <= 0) {
+      _currentIndex = _playList.length - 1;
     } else {
-      stop();
-      play();
+      _currentIndex--;
     }
+    play();
+    getLyric();
   }
 
   /// 添加歌曲之前清空列表
