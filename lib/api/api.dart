@@ -4,11 +4,23 @@ import 'package:simple_music/entities/likedList.dart';
 import 'package:simple_music/entities/lyric.dart';
 import 'package:simple_music/entities/playlist.dart';
 import 'package:simple_music/entities/playlistDetial.dart';
+import 'package:simple_music/entities/search.dart';
 import 'package:simple_music/entities/songDetail.dart';
 import 'package:simple_music/entities/user.dart';
 import 'package:simple_music/entities/banner.dart';
 import 'package:simple_music/entities/common.dart';
 import 'package:simple_music/entities/dailySongs.dart';
+
+class SearchType {
+  const SearchType._(this.type);
+
+  final int type;
+
+  static const SearchType song = SearchType._(1);
+  static const SearchType album = SearchType._(10);
+  static const SearchType artist = SearchType._(100);
+  static const SearchType playlist = SearchType._(1000);
+}
 
 class Api {
   /// 获取轮播图
@@ -82,5 +94,17 @@ class Api {
   static Future<HotSearchData> getHotSearchList() async {
     var res = await Http.get('/search/hot/detail');
     return HotSearchData.fromJson(res);
+  }
+
+  // 搜索
+  static Future<SearchResultData> getSearchResult(String keyword,
+      {SearchType type, int limit, int offset}) async {
+    var res = await Http.get('/search', queryParameters: {
+      'keywords': keyword,
+      "type": type.type,
+      "limit": limit,
+      "offset": offset
+    });
+    return SearchResultData.fromJson(res);
   }
 }

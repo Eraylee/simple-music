@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:simple_music/entities/hotSearch.dart';
+import 'package:simple_music/utils/navigator_util.dart';
 import 'package:simple_music/widgets/empty_view_widget.dart';
 import 'package:simple_music/widgets/loading_widget.dart';
 
@@ -30,6 +31,7 @@ class HotSearchListWidget extends StatelessWidget {
                   itemBuilder: (context, i) {
                     HotSearch item = hotSearch[i];
                     return ListTile(
+                      onTap: () => NavigatorUtil.goSearchDetailPage(context, item.searchWord),
                       leading: Container(
                         child: Center(
                           child: Text((i + 1).toString()),

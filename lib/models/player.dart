@@ -137,7 +137,7 @@ class PlayerModel with ChangeNotifier {
     try {
       _audioPlayer
           .play("https://music.163.com/song/media/outer/url?id=${song.id}.mp3");
-      saveCurSong();
+      _saveCurSong();
     } catch (e) {
       print(
           '播放歌曲链接： https://music.163.com/song/media/outer/url?id=${song.id}.mp3 错误，错误原因： ${e.toString()}');
@@ -158,8 +158,10 @@ class PlayerModel with ChangeNotifier {
   void remove(int index) {
     _playList.removeAt(index);
     if (_playList.length > 1) {
-      if (index <= _currentIndex) {
+      if (index < _currentIndex) {
         _currentIndex--;
+      } else if (index == _currentIndex) {
+        _currentIndex = 0;
         play();
       }
     } else {
@@ -170,7 +172,7 @@ class PlayerModel with ChangeNotifier {
   }
 
   // 保存当前歌曲到本地
-  void saveCurSong() {
+  void _saveCurSong() {
     Application.sp.remove('play_list');
     Application.sp.setStringList(
         'play_list', _playList.map((v) => json.encode(v.toJson())).toList());
@@ -216,7 +218,7 @@ class PlayerModel with ChangeNotifier {
     _playList.clear();
     _playList.addAll(songs);
     if (needSave) {
-      saveCurSong();
+      _saveCurSong();
     }
   }
 
@@ -243,6 +245,13 @@ class PlayerModel with ChangeNotifier {
     } catch (e) {
       print('errors ${e.toString()}');
     }
+  }
+
+  void clearList() {
+    _playList = [];
+    _currentIndex = -1;
+    notifyListeners();
+    _saveCurSong();
   }
 
   void getLikedList([uid]) async {

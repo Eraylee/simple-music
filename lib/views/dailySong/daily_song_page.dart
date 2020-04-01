@@ -1,17 +1,11 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_music/api/api.dart';
 import 'package:simple_music/application.dart';
 import 'package:simple_music/entities/dailySongs.dart';
-import 'package:simple_music/entities/playlist.dart';
-import 'package:simple_music/entities/playlistDetial.dart';
 import 'package:simple_music/entities/song.dart';
-import 'package:simple_music/entities/songDetail.dart';
 import 'package:simple_music/models/player.dart';
 import 'package:simple_music/widgets/common_detail_header_widget.dart';
-import 'package:simple_music/widgets/player_widget.dart';
 import 'package:simple_music/widgets/sliver_future_builder_widget.dart';
 import 'package:simple_music/widgets/song_widget.dart';
 

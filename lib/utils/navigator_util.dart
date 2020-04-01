@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import 'package:simple_music/application.dart';
 import 'package:simple_music/entities/playlist.dart';
-import 'package:simple_music/entities/song.dart';
 import 'package:simple_music/route/routes.dart';
 import 'package:simple_music/utils/data_utils.dart';
 

@@ -72,7 +72,13 @@ class PlaylistWidget extends StatelessWidget {
                 style: Theme.of(context).textTheme.title,
               ),
               Row(
-                children: <Widget>[],
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  IconButtonWidget(
+                    icon: Icon(Icons.delete),
+                    onPressed: playerModel.clearList,
+                  )
+                ],
               ),
               Expanded(
                 child: ListView.builder(

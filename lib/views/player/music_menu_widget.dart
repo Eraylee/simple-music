@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:simple_music/application.dart';
 import 'package:simple_music/models/player.dart';
-import 'package:simple_music/widgets/empty_view_widget.dart';
 import 'package:simple_music/widgets/icon_button_widget.dart';
 import 'package:simple_music/widgets/playlist_widget.dart';
 

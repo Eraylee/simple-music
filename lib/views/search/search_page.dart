@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_music/models/player.dart';
 
 import 'package:simple_music/models/search.dart';
 import 'package:simple_music/utils/navigator_util.dart';
 import 'package:simple_music/views/search/hot_search_list_widget.dart';
 import 'package:simple_music/views/search/search_history_widget.dart';
+import 'package:simple_music/widgets/empty_view_widget.dart';
+import 'package:simple_music/widgets/player_widget.dart';
 import 'package:simple_music/widgets/search_widget.dart';
 
 class SearchPage extends StatefulWidget {
@@ -39,14 +42,23 @@ class SearchState extends State<SearchPage> {
         ),
         body: Consumer<SearchModel>(
           builder: (BuildContext context, SearchModel searchModel, _) =>
-              SingleChildScrollView(
-            child: Column(
-              children: <Widget>[
-                SearchHistoryWidget(searchModel.searchHistory),
-                HotSearchListWidget(searchModel.hotSearchList)
-              ],
+              SafeArea(
+                  child: Stack(children: <Widget>[
+            SingleChildScrollView(
+              child: Column(
+                children: <Widget>[
+                  SearchHistoryWidget(searchModel.searchHistory),
+                  HotSearchListWidget(searchModel.hotSearchList),
+                  Consumer<PlayerModel>(
+                      builder: (context, PlayerModel playerModel, child) =>
+                          EmptyView(
+                            height: playerModel.playList.isEmpty ? 0 : 52.0,
+                          ))
+                ],
+              ),
             ),
-          ),
+            PlayerWidget()
+          ])),
         ));
   }
 }

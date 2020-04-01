@@ -10,12 +10,14 @@ class SongWidget extends StatelessWidget {
       this.song,
       @required this.onPressed,
       @required this.index,
-      this.isCurrent,
+      this.isCurrent = false,
+      this.noLeading = false,
       this.numLeading = false})
       : super(key: key);
   final Song song;
   final int index;
   final bool isCurrent;
+  final bool noLeading;
   final bool numLeading;
   final VoidCallback onPressed;
   @override
@@ -24,23 +26,25 @@ class SongWidget extends StatelessWidget {
       onTap: onPressed,
       dense: true,
       contentPadding: EdgeInsets.all(0),
-      leading: numLeading
-          ? Container(
-              width: Application.screen.getWidth(32),
-              height: Application.screen.getHeight(32),
-              child: Center(
-                child: Text(
-                  (index + 1).toString(),
-                  style: TextStyle(
-                      fontSize: 18, color: Theme.of(context).primaryColor),
+      leading: noLeading
+          ? null
+          : numLeading
+              ? Container(
+                  width: Application.screen.getWidth(32),
+                  height: Application.screen.getHeight(32),
+                  child: Center(
+                    child: Text(
+                      (index + 1).toString(),
+                      style: TextStyle(
+                          fontSize: 18, color: Theme.of(context).primaryColor),
+                    ),
+                  ),
+                )
+              : Image.network(
+                  '${song.picUrl}?param=150y150',
+                  width: 60,
+                  height: 60,
                 ),
-              ),
-            )
-          : Image.network(
-              '${song.picUrl}?param=150y150',
-              width: 60,
-              height: 60,
-            ),
       title: Text(
         song.name,
         style: TextStyle(fontSize: 16),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:simple_music/utils/navigator_util.dart';
 
 class SearchHistoryWidget extends StatelessWidget {
   SearchHistoryWidget(this.history);
@@ -20,7 +21,10 @@ class SearchHistoryWidget extends StatelessWidget {
               spacing: 8.0, // gap between adjacent chips
               children: history.asMap().keys.map((index) {
                 String value = history[index];
-                return Chip(label: Text(value));
+                return InkWell(
+                  onTap: () => NavigatorUtil.goSearchDetailPage(context, value),
+                  child: Chip(label: Text(value)),
+                );
               }).toList(),
             ),
           )

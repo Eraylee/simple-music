@@ -26,7 +26,6 @@ class HomeState extends State<HomePage> {
         homeModel.getdailySongs();
       }
     });
-    ;
   }
 
   @override

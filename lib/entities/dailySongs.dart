@@ -1,6 +1,4 @@
 import 'dart:convert' show json;
-
-import 'package:simple_music/entities/song.dart';
 import 'package:simple_music/entities/songDetail.dart';
 
 class DailySongs {

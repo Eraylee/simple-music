@@ -4,14 +4,12 @@ import 'package:provider/provider.dart';
 import 'package:simple_music/application.dart';
 import 'package:simple_music/models/player.dart';
 import 'package:simple_music/models/user.dart';
-import 'package:simple_music/utils/data_utils.dart';
 
 import 'package:simple_music/views/player/album_art_widget.dart';
 import 'package:simple_music/views/player/lyric_view.dart';
 import 'package:simple_music/views/player/music_control_wiget.dart';
 import 'package:simple_music/views/player/music_menu_widget.dart';
 import 'package:simple_music/widgets/empty_view_widget.dart';
-import 'package:simple_music/widgets/icon_button_widget.dart';
 import 'package:simple_music/views/player/progress_widget.dart';
 
 class PlayerPage extends StatefulWidget {
