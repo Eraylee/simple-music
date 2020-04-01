@@ -1,38 +1,33 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_music/models/player.dart';
 
 import 'package:simple_music/models/search.dart';
-import 'package:simple_music/utils/navigator_util.dart';
+import 'package:simple_music/views/search/songs_result_widget.dart';
+import 'package:simple_music/widgets/empty_view_widget.dart';
+import 'package:simple_music/widgets/player_widget.dart';
 import 'package:simple_music/widgets/search_widget.dart';
 
-class Choice {
-  const Choice({this.title, this.page});
-  final String title;
-  final Widget page;
-}
-
-List<Choice> choices = <Choice>[
-  Choice(title: '综合', page: Container()),
-  Choice(title: '单曲', page: Container()),
-  Choice(title: '歌手', page: Container()),
-  Choice(title: '专辑', page: Container()),
+List<String> choices = [
+  '单曲',
+  '歌手',
+  '专辑',
 ];
 
 class SearchDetailPage extends StatefulWidget {
-  SearchDetailPage(this.query);
-  final String query;
+  SearchDetailPage(this.keyword);
+  final String keyword;
   @override
   SearchDetailState createState() => SearchDetailState();
 }
 
 class SearchDetailState extends State<SearchDetailPage> {
+  TextEditingController _controller = TextEditingController();
   @override
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((call) {
-      print(widget.query);
+      _controller.text = widget.keyword;
       // Provider.of<SearchModel>(context, listen: false).getHotSearch();
     });
   }
@@ -48,18 +43,35 @@ class SearchDetailState extends State<SearchDetailPage> {
               backgroundColor: Theme.of(context).primaryColor,
               title: Consumer<SearchModel>(
                   builder: (BuildContext context, SearchModel searchModel, _) =>
-                      SearchWidget(onSubmitted: (value) {})),
+                      SearchWidget(
+                        onSubmitted: (value) {},
+                        controller: _controller,
+                      )),
               bottom: TabBar(
-                tabs: choices.map((v) => Tab(text: v.title)).toList(),
+                tabs: choices.map((v) => Tab(text: v)).toList(),
               )),
-          body: Consumer<SearchModel>(
-            builder: (BuildContext context, SearchModel searchModel, _) =>
-                SingleChildScrollView(
-              child: Column(
-                children: <Widget>[],
-              ),
+          body: SafeArea(
+              child: Stack(children: <Widget>[
+            Column(
+              children: <Widget>[
+                Expanded(
+                  child: TabBarView(
+                    children: <Widget>[
+                      SongsResultWidget(widget.keyword),
+                      SongsResultWidget(widget.keyword),
+                      SongsResultWidget(widget.keyword)
+                    ],
+                  ),
+                ),
+                Consumer<PlayerModel>(
+                    builder: (context, PlayerModel playerModel, child) =>
+                        EmptyView(
+                          height: playerModel.playList.isEmpty ? 0 : 52.0,
+                        ))
+              ],
             ),
-          )),
+            PlayerWidget()
+          ]))),
     );
   }
 }
