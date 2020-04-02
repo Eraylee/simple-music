@@ -9,6 +9,7 @@ import 'package:simple_music/entities/likedList.dart';
 import 'package:simple_music/entities/song.dart';
 import 'package:simple_music/api/api.dart';
 import 'package:simple_music/entities/lyric.dart';
+import 'package:simple_music/entities/songDetail.dart';
 import 'package:simple_music/utils/utils..dart';
 
 export 'package:audioplayers/audioplayers.dart' show AudioPlayerState;
@@ -57,7 +58,7 @@ class PlayerModel with ChangeNotifier {
           .getStringList('play_list')
           .map((v) => Song.fromJson(json.decode(v)))
           .toList();
-      _addMusicToPlaylist(songs);
+      _addMusicsToPlaylist(songs);
     }
   }
   StreamController<Duration> _streamController =
@@ -129,7 +130,20 @@ class PlayerModel with ChangeNotifier {
 
   /// 添加歌曲
   void add(List<Song> songs) {
-    _addMusicToPlaylist(songs);
+    _addMusicsToPlaylist(songs);
+  }
+
+  /// 添加单曲
+  void addSingleSong(int id) async {
+    Song song = await getOrignalSong(id);
+    int index = _playList.indexOf(song);
+    if (index < 0) {
+      _playList.insert(0, song);
+      _currentIndex = 0;
+    } else {
+      _currentIndex = index;
+    }
+    play();
   }
 
   /// 播放
@@ -182,7 +196,7 @@ class PlayerModel with ChangeNotifier {
   /// 添加并且播放
   void addAndPlay(List<Song> songs, int index) {
     _currentIndex = index;
-    _addMusicToPlaylist(songs, false);
+    _addMusicsToPlaylist(songs, false);
     play();
   }
 
@@ -214,7 +228,7 @@ class PlayerModel with ChangeNotifier {
   }
 
   /// 添加歌曲之前清空列表
-  _addMusicToPlaylist(List<Song> songs, [bool needSave = true]) {
+  _addMusicsToPlaylist(List<Song> songs, [bool needSave = true]) {
     _playList.clear();
     _playList.addAll(songs);
     if (needSave) {
@@ -229,6 +243,7 @@ class PlayerModel with ChangeNotifier {
     _streamController.close();
   }
 
+  ///获取歌词
   void getLyric() async {
     lyric = [];
     try {
@@ -247,12 +262,15 @@ class PlayerModel with ChangeNotifier {
     }
   }
 
+  /// 清除歌词
   void clearList() {
-    _playList = [];
+    _playList.clear();
     _currentIndex = -1;
     notifyListeners();
     _saveCurSong();
   }
+
+  /// 获取喜欢列表
 
   void getLikedList([uid]) async {
     try {
@@ -288,5 +306,10 @@ class PlayerModel with ChangeNotifier {
     } catch (e) {
       print('errors ${e.toString()}');
     }
+  }
+
+  Future<Song> getOrignalSong(id) async {
+    SongDetialData res = await Api.getOrignalSong([id]);
+    return res.songs.first.toSong();
   }
 }

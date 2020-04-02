@@ -11,7 +11,7 @@ class Routes {
   static String player = "/player";
   static String searchDetail = "/searchDetail";
   static String playlistDeital = "/playlistDeital";
-  static String dailySongDetail = "/dailySongDetail";
+  static String dailyOrignalSong = "/dailyOrignalSong";
 
   static void configureRoutes(Router router) {
     router.notFoundHandler = Handler(
@@ -24,6 +24,6 @@ class Routes {
     router.define(search, handler: searchHandler);
     router.define(searchDetail, handler: searchDetailHandler);
     router.define(playlistDeital, handler: playelistDetailHandler);
-    router.define(dailySongDetail, handler: dailySongsDetailHandler);
+    router.define(dailyOrignalSong, handler: dailySongsDetailHandler);
   }
 }

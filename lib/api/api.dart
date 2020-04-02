@@ -72,10 +72,10 @@ class Api {
   }
 
   //歌曲详情
-  static Future<SongDetailData> getSongDetail(List<int> ids) async {
+  static Future<SongDetialData> getOrignalSong(List<int> ids) async {
     var res =
         await Http.get('/song/detail', queryParameters: {'ids': ids.join(',')});
-    return SongDetailData.fromJson(res);
+    return SongDetialData.fromJson(res);
   }
 
   //歌单详情

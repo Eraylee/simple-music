@@ -49,7 +49,7 @@ class HomeState extends State<HomePage> {
                       button: SmallOutlineButton(
                         '更多',
                         onPressed: () =>
-                            NavigatorUtil.goDailySongDetailPage(context),
+                            NavigatorUtil.goDailyOrignalSongPage(context),
                       ),
                       list: songs,
                       currentSong: playerModel.song)

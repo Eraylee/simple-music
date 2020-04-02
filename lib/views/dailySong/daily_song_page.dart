@@ -9,7 +9,7 @@ import 'package:simple_music/widgets/common_detail_header_widget.dart';
 import 'package:simple_music/widgets/sliver_future_builder_widget.dart';
 import 'package:simple_music/widgets/song_widget.dart';
 
-class DailySongDetailPage extends StatelessWidget {
+class DailyOrignalSongPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CommonDetailHeaderWidget(

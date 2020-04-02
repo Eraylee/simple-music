@@ -4,7 +4,7 @@ import 'package:simple_music/entities/songDetail.dart';
 class DailySongs {
   int code;
   String msg;
-  List<SongDetail> recommend;
+  List<OrignalSong> recommend;
 
   DailySongs({
     this.code,
@@ -14,11 +14,11 @@ class DailySongs {
 
   factory DailySongs.fromJson(jsonRes) {
     if (jsonRes == null) return null;
-    List<SongDetail> recommend = jsonRes['recommend'] is List ? [] : null;
+    List<OrignalSong> recommend = jsonRes['recommend'] is List ? [] : null;
     if (recommend != null) {
       for (var item in jsonRes['recommend']) {
         if (item != null) {
-          recommend.add(SongDetail.fromJson(item));
+          recommend.add(OrignalSong.fromJson(item));
         }
       }
     }

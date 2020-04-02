@@ -14,10 +14,10 @@ class SearchPage extends StatefulWidget {
   SearchPage({Key key}) : super(key: key);
 
   @override
-  SearchState createState() => SearchState();
+  _SearchState createState() => _SearchState();
 }
 
-class SearchState extends State<SearchPage> {
+class _SearchState extends State<SearchPage> {
   @override
   void initState() {
     super.initState();

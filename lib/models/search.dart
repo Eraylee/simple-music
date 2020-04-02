@@ -11,10 +11,12 @@ class SearchModel with ChangeNotifier {
       _searchHistory = Application.sp.getStringList('search_history');
     }
   }
+  String _keyword;
   List<HotSearch> _hotSearchList = [];
   List<String> _searchHistory = [];
   SearchResult _result = SearchResult.init();
   List<String> get searchHistory => _searchHistory;
+  String get keyword => _keyword;
   List<HotSearch> get hotSearchList => _hotSearchList;
   SearchResult get result => _result;
 
@@ -47,8 +49,13 @@ class SearchModel with ChangeNotifier {
 
   void search(String keyword,
       {SearchType type, int limit = 20, int page = 1}) async {
+    if (_keyword != keyword) {
+      _keyword = keyword;
+      _result = SearchResult.init();
+    }
+
     try {
-      SearchResultData res = await Api.getSearchResult(keyword,
+      SearchResultData res = await Api.getSearchResult(_keyword,
           type: type, limit: limit, offset: (page - 1) * limit);
       switch (type) {
         case SearchType.album:

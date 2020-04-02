@@ -8,9 +8,9 @@ import 'package:simple_music/utils/utils..dart';
 
 class HomeModel with ChangeNotifier {
   List<MyBanner.Banner> _banners = [];
-  List<SongDetail> _dailySongs = [];
+  List<OrignalSong> _dailySongs = [];
   List<MyBanner.Banner> get banners => _banners;
-  List<SongDetail> get dailySongs => _dailySongs;
+  List<OrignalSong> get dailySongs => _dailySongs;
 
   /// 获取首页轮播图
   void getBanner() async {

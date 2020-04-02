@@ -1,22 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_music/api/api.dart';
-import 'package:simple_music/entities/song.dart';
+import 'package:simple_music/entities/playlist.dart';
+import 'package:simple_music/entities/songDetail.dart';
 import 'package:simple_music/models/player.dart';
 import 'package:simple_music/models/search.dart';
 
 import 'package:flutter_easyrefresh/easy_refresh.dart';
+import 'package:simple_music/utils/navigator_util.dart';
 import 'package:simple_music/widgets/loading_widget.dart';
-import 'package:simple_music/widgets/song_widget.dart';
 
-class SongsResultWidget extends StatefulWidget {
-  SongsResultWidget(this.keyword);
+class PlaylistResultWidget extends StatefulWidget {
+  PlaylistResultWidget(this.keyword);
   final String keyword;
   @override
-  _SongsResultState createState() => _SongsResultState();
+  _PlaylistResultState createState() => _PlaylistResultState();
 }
 
-class _SongsResultState extends State<SongsResultWidget> {
+class _PlaylistResultState extends State<PlaylistResultWidget> {
   int _page = 1;
   @override
   void initState() {
@@ -24,9 +25,10 @@ class _SongsResultState extends State<SongsResultWidget> {
     WidgetsBinding.instance.addPostFrameCallback((call) {
       SearchModel searchModel =
           Provider.of<SearchModel>(context, listen: false);
+
       if (searchModel.keyword != widget.keyword ||
-          searchModel.result.songs.isEmpty) {
-        searchModel.search(widget.keyword, type: SearchType.song);
+          searchModel.result.playlists.isEmpty) {
+        searchModel.search(widget.keyword, type: SearchType.playlist);
       }
     });
   }
@@ -37,7 +39,7 @@ class _SongsResultState extends State<SongsResultWidget> {
     return Consumer2<PlayerModel, SearchModel>(
       builder: (BuildContext context, PlayerModel playerModel,
           SearchModel searchModel, child) {
-        if (searchModel.result.songs.isEmpty)
+        if (searchModel.result.playlists.isEmpty)
           return Center(
             child: LoadingWidget(),
           );
@@ -48,15 +50,20 @@ class _SongsResultState extends State<SongsResultWidget> {
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
                   (context, index) {
-                    Song song = searchModel.result.songs[index].toSong();
-                    return SongWidget(
-                        key: UniqueKey(),
-                        index: index,
-                        onPressed: () => playerModel.addSingleSong(song.id),
-                        song: song,
-                        noLeading: true);
+                    Playlist playlist = searchModel.result.playlists[index];
+                    return ListTile(
+                      onTap: () =>
+                          NavigatorUtil.goPlaylistDetailPage(context, playlist),
+                      contentPadding: EdgeInsets.all(0),
+                      leading: Image.network(
+                        '${playlist.coverImgUrl}?param=50y50',
+                        width: 50.0,
+                        height: 50.0,
+                      ),
+                      title: Text(playlist.name),
+                    );
                   },
-                  childCount: searchModel.result.songs.length,
+                  childCount: searchModel.result.playlists.length,
                 ),
               ),
             )
@@ -64,9 +71,9 @@ class _SongsResultState extends State<SongsResultWidget> {
           controller: _controller,
           onLoad: () async {
             searchModel.search(widget.keyword,
-                type: SearchType.song, page: ++_page);
+                type: SearchType.playlist, page: ++_page);
             _controller.finishLoad(
-                noMore: searchModel.result.songs.length >=
+                noMore: searchModel.result.playlists.length >=
                     searchModel.result.songCount);
           },
         );

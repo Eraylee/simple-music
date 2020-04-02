@@ -28,8 +28,8 @@ class NavigatorUtil {
   }
 
   /// 每日推荐详情
-  static void goDailySongDetailPage(BuildContext context) {
-    Application.router.navigateTo(context, Routes.dailySongDetail);
+  static void goDailyOrignalSongPage(BuildContext context) {
+    Application.router.navigateTo(context, Routes.dailyOrignalSong);
   }
 
   /// 搜索页

@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:simple_music/models/player.dart';
 import 'package:simple_music/utils/navigator_util.dart';
 
 import 'package:simple_music/views/home/home_page.dart';
 import 'package:simple_music/views/container/drawer_widget.dart';
 import 'package:simple_music/views/mine/mine_page.dart';
+import 'package:simple_music/widgets/empty_view_widget.dart';
 import 'package:simple_music/widgets/player_widget.dart';
 
 class Choice {
@@ -49,8 +52,20 @@ class ContainerPage extends StatelessWidget {
         body: SafeArea(
           child: Stack(
             children: <Widget>[
-              TabBarView(
-                children: choices.map((Choice choice) => choice.page).toList(),
+              Column(
+                children: <Widget>[
+                  Expanded(
+                    child: TabBarView(
+                      children:
+                          choices.map((Choice choice) => choice.page).toList(),
+                    ),
+                  ),
+                  Consumer<PlayerModel>(
+                      builder: (context, PlayerModel playerModel, child) =>
+                          EmptyView(
+                            height: playerModel.playList.isEmpty ? 0 : 52.0,
+                          )),
+                ],
               ),
               PlayerWidget()
             ],

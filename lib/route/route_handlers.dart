@@ -43,7 +43,7 @@ Handler playelistDetailHandler = Handler(
 /// 每日推荐详情
 Handler dailySongsDetailHandler = Handler(
     handlerFunc: (BuildContext context, Map<String, List<Object>> params) {
-  return DailySongDetailPage();
+  return DailyOrignalSongPage();
 });
 
 /// 搜索

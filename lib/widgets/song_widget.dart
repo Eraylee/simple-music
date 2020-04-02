@@ -41,9 +41,9 @@ class SongWidget extends StatelessWidget {
                   ),
                 )
               : Image.network(
-                  '${song.picUrl}?param=150y150',
-                  width: 60,
-                  height: 60,
+                  '${song.picUrl}?param=50y50',
+                  width: 50,
+                  height: 50,
                 ),
       title: Text(
         song.name,

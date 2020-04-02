@@ -60,7 +60,7 @@ class Banner {
   Object event;
   Object video;
   Object dynamicVideoData;
-  SongDetail song;
+  OrignalSong song;
   String bannerId;
   Object alg;
   String scm;
@@ -153,7 +153,7 @@ class Banner {
       event: jsonRes['event'],
       video: jsonRes['video'],
       dynamicVideoData: jsonRes['dynamicVideoData'],
-      song: SongDetail.fromJson(jsonRes['song']),
+      song: OrignalSong.fromJson(jsonRes['song']),
       bannerId: jsonRes['bannerId'],
       alg: jsonRes['alg'],
       scm: jsonRes['scm'],

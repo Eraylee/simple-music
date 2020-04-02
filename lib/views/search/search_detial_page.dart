@@ -3,6 +3,8 @@ import 'package:provider/provider.dart';
 import 'package:simple_music/models/player.dart';
 
 import 'package:simple_music/models/search.dart';
+import 'package:simple_music/views/search/artists_result_widget..dart';
+import 'package:simple_music/views/search/playlist_result_widget..dart';
 import 'package:simple_music/views/search/songs_result_widget.dart';
 import 'package:simple_music/widgets/empty_view_widget.dart';
 import 'package:simple_music/widgets/player_widget.dart';
@@ -18,10 +20,10 @@ class SearchDetailPage extends StatefulWidget {
   SearchDetailPage(this.keyword);
   final String keyword;
   @override
-  SearchDetailState createState() => SearchDetailState();
+  _SearchDetailState createState() => _SearchDetailState();
 }
 
-class SearchDetailState extends State<SearchDetailPage> {
+class _SearchDetailState extends State<SearchDetailPage> {
   TextEditingController _controller = TextEditingController();
   @override
   void initState() {
@@ -58,8 +60,8 @@ class SearchDetailState extends State<SearchDetailPage> {
                   child: TabBarView(
                     children: <Widget>[
                       SongsResultWidget(widget.keyword),
-                      SongsResultWidget(widget.keyword),
-                      SongsResultWidget(widget.keyword)
+                      ArtistsResultWidget(widget.keyword),
+                      PlaylistResultWidget(widget.keyword)
                     ],
                   ),
                 ),

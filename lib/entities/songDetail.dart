@@ -1,25 +1,26 @@
 import 'dart:convert' show json;
 
+import 'package:simple_music/entities/playlist.dart';
 import 'package:simple_music/entities/song.dart';
 
-class SongDetailData {
-  List<SongDetail> songs;
+class OrignalSongData {
+  List<OrignalSong> songs;
   List<Privileges> privileges;
   int code;
 
-  SongDetailData({
+  OrignalSongData({
     this.songs,
     this.privileges,
     this.code,
   });
 
-  factory SongDetailData.fromJson(jsonRes) {
+  factory OrignalSongData.fromJson(jsonRes) {
     if (jsonRes == null) return null;
-    List<SongDetail> songs = jsonRes['songs'] is List ? [] : null;
+    List<OrignalSong> songs = jsonRes['songs'] is List ? [] : null;
     if (songs != null) {
       for (var item in jsonRes['songs']) {
         if (item != null) {
-          songs.add(SongDetail.fromJson(item));
+          songs.add(OrignalSong.fromJson(item));
         }
       }
     }
@@ -33,7 +34,7 @@ class SongDetailData {
       }
     }
 
-    return SongDetailData(
+    return OrignalSongData(
       songs: songs,
       privileges: privileges,
       code: jsonRes['code'],
@@ -51,7 +52,7 @@ class SongDetailData {
   }
 }
 
-class SongDetail {
+class OrignalSong {
   String name;
   int id;
   int position;
@@ -94,7 +95,7 @@ class SongDetail {
   bool exclusive;
   Privilege privilege;
 
-  SongDetail({
+  OrignalSong({
     this.name,
     this.id,
     this.position,
@@ -138,7 +139,7 @@ class SongDetail {
     this.privilege,
   });
 
-  factory SongDetail.fromJson(jsonRes) {
+  factory OrignalSong.fromJson(jsonRes) {
     if (jsonRes == null) return null;
     List<String> alias = jsonRes['alias'] is List ? [] : null;
     if (alias != null) {
@@ -167,7 +168,7 @@ class SongDetail {
       }
     }
 
-    return SongDetail(
+    return OrignalSong(
       name: jsonRes['name'],
       id: jsonRes['id'],
       position: jsonRes['position'],
@@ -945,6 +946,55 @@ class Privileges {
         'preSell': preSell,
         'playMaxbr': playMaxbr,
         'downloadMaxbr': downloadMaxbr,
+      };
+
+  @override
+  String toString() {
+    return json.encode(this);
+  }
+}
+
+class SongDetialData {
+  List<Tracks> songs;
+  List<Privileges> privileges;
+  int code;
+
+  SongDetialData({
+    this.songs,
+    this.privileges,
+    this.code,
+  });
+
+  factory SongDetialData.fromJson(jsonRes) {
+    if (jsonRes == null) return null;
+    List<Tracks> songs = jsonRes['songs'] is List ? [] : null;
+    if (songs != null) {
+      for (var item in jsonRes['songs']) {
+        if (item != null) {
+          songs.add(Tracks.fromJson(item));
+        }
+      }
+    }
+
+    List<Privileges> privileges = jsonRes['privileges'] is List ? [] : null;
+    if (privileges != null) {
+      for (var item in jsonRes['privileges']) {
+        if (item != null) {
+          privileges.add(Privileges.fromJson(item));
+        }
+      }
+    }
+
+    return SongDetialData(
+      songs: songs,
+      privileges: privileges,
+      code: jsonRes['code'],
+    );
+  }
+  Map<String, dynamic> toJson() => {
+        'songs': songs,
+        'privileges': privileges,
+        'code': code,
       };
 
   @override

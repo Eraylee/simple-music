@@ -46,7 +46,7 @@ class PlayerWidget extends StatelessWidget {
                         children: <Widget>[
                           ClipOval(
                             child: Image.network(
-                              playerModel.song.picUrl,
+                              '${playerModel.song.picUrl}?param=50y50',
                               fit: BoxFit.cover,
                             ),
                           ),

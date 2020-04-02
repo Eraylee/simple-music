@@ -30,7 +30,7 @@ class SearchResultData {
 }
 
 class SearchResult {
-  List<SongDetail> songs;
+  List<OrignalSong> songs;
   int songCount;
   List<Album> albums;
   int albumCount;
@@ -63,11 +63,11 @@ class SearchResult {
 
   factory SearchResult.fromJson(jsonRes) {
     if (jsonRes == null) return null;
-    List<SongDetail> songs = jsonRes['songs'] is List ? [] : null;
+    List<OrignalSong> songs = jsonRes['songs'] is List ? [] : null;
     if (songs != null) {
       for (var item in jsonRes['songs']) {
         if (item != null) {
-          songs.add(SongDetail.fromJson(item));
+          songs.add(OrignalSong.fromJson(item));
         }
       }
     }
