@@ -13,7 +13,7 @@ import 'package:simple_music/widgets/search_widget.dart';
 List<String> choices = [
   '单曲',
   '歌手',
-  '专辑',
+  '歌单',
 ];
 
 class SearchDetailPage extends StatefulWidget {
