@@ -25,15 +25,13 @@ class MineState extends State<MinePage> {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Column(
-        children: <Widget>[
-          MineHeaderWidget(),
-          Expanded(
-            child: MinePlaylistWidget(),
-          )
-        ],
-      ),
+    return Column(
+      children: <Widget>[
+        MineHeaderWidget(),
+        Expanded(
+          child: MinePlaylistWidget(),
+        ),
+      ],
     );
   }
 }

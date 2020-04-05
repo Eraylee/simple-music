@@ -8,7 +8,38 @@ import 'package:simple_music/utils/navigator_util.dart';
 import 'package:simple_music/widgets/loading_widget.dart';
 import 'package:simple_music/widgets/playlist_item_widget.dart';
 
-class MinePlaylistWidget extends StatelessWidget {
+List<String> tabs = ['我创建的', '我收藏的'];
+
+class MinePlaylistWidget extends StatefulWidget {
+  @override
+  _MinePlaylistState createState() => _MinePlaylistState();
+}
+
+class _MinePlaylistState extends State<MinePlaylistWidget>
+    with SingleTickerProviderStateMixin {
+  TabController _controller;
+  int _currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(vsync: this, length: tabs.length);
+    _controller.addListener(_handleChangeIndex);
+  }
+
+  void _handleChangeIndex() {
+    setState(() {
+      _currentIndex = _controller.index;
+    });
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+
+    _controller.removeListener(_handleChangeIndex);
+    _controller.dispose();
+  }
+
   Widget renderList(List<Playlist> list) => ListView.builder(
       shrinkWrap: true,
       itemCount: list.length,
@@ -37,34 +68,34 @@ class MinePlaylistWidget extends StatelessWidget {
 
       return Column(
         children: <Widget>[
+          Row(
+              children: tabs.asMap().keys.map(
+            (int index) {
+              String value = tabs[index];
+              return FlatButton(
+                child: Text(value,
+                    style: TextStyle(
+                        color: _currentIndex == index
+                            ? Theme.of(context).primaryColor
+                            : Colors.black54,
+                        fontSize: 12.0)),
+                onPressed: () {
+                  setState(() {
+                    _currentIndex = index;
+                  });
+                  _controller.index = index;
+                },
+              );
+            },
+          ).toList()),
           Expanded(
-            child: DefaultTabController(
-              length: 2,
-              child: Column(
+            child: Padding(
+              padding: EdgeInsets.symmetric(horizontal: 14),
+              child: TabBarView(
+                controller: _controller,
                 children: <Widget>[
-                  TabBar(
-                    labelColor: Theme.of(context).primaryColor,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    tabs: <Widget>[
-                      Tab(
-                        text: '创建',
-                      ),
-                      Tab(
-                        text: '收藏',
-                      )
-                    ],
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 14),
-                      child: TabBarView(
-                        children: <Widget>[
-                          renderList(mineModel.createdList),
-                          renderList(mineModel.collectedList),
-                        ],
-                      ),
-                    ),
-                  ),
+                  renderList(mineModel.createdList),
+                  renderList(mineModel.collectedList),
                 ],
               ),
             ),

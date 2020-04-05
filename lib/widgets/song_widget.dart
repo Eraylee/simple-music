@@ -52,7 +52,7 @@ class SongWidget extends StatelessWidget {
         overflow: TextOverflow.ellipsis,
       ),
       subtitle: Text(
-        '${song.album}-${song.artists}}',
+        '${song.album}-${song.artists}',
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
         style: TextStyle(color: Colors.grey, fontSize: 12),

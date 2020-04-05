@@ -48,26 +48,26 @@ class PlayerState extends State<PlayerPage> {
     return Stack(
       //重叠的Stack Widget，实现重贴
       children: <Widget>[
-        // Consumer<PlayerModel>(
-        //     builder: (BuildContext context, PlayerModel playerModel, _) =>
-        //         Container(
-        //           decoration: BoxDecoration(
-        //               image: DecorationImage(
-        //                   fit: BoxFit.cover,
-        //                   image: NetworkImage(
-        //                     playerModel.song.picUrl ??
-        //                         'https://w.wallhaven.cc/full/39/wallhaven-39gogv.jpg',
-        //                   ))),
-        //         )),
-        // BackdropFilter(
-        //   filter:
-        //       ImageFilter.blur(sigmaX: 80.0, sigmaY: 80.0), //图片模糊过滤，横向竖向都设置5.0
-        //   child: Container(
-        //     color: Colors.black12,
-        //     width: double.infinity,
-        //     height: double.infinity,
-        //   ),
-        // ),
+        Consumer<PlayerModel>(
+            builder: (BuildContext context, PlayerModel playerModel, _) =>
+                Container(
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            playerModel.song.picUrl ??
+                                'https://w.wallhaven.cc/full/39/wallhaven-39gogv.jpg',
+                          ))),
+                )),
+        BackdropFilter(
+          filter:
+              ImageFilter.blur(sigmaX: 80.0, sigmaY: 80.0), //图片模糊过滤，横向竖向都设置5.0
+          child: Container(
+            color: Colors.black12,
+            width: double.infinity,
+            height: double.infinity,
+          ),
+        ),
         Scaffold(
           appBar: AppBar(
             elevation: 0,
@@ -83,9 +83,9 @@ class PlayerState extends State<PlayerPage> {
                       ],
                     )),
             centerTitle: true,
-            backgroundColor: Colors.black,
+            backgroundColor: Colors.transparent,
           ),
-          backgroundColor: Colors.black,
+          backgroundColor: Colors.transparent,
           body: Consumer<PlayerModel>(
               builder: (BuildContext context, PlayerModel playerModel, _) =>
                   Column(
